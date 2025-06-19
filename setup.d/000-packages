@@ -40,6 +40,8 @@ define PACKAGE_LIST <<EOM
     libboost-filesystem-dev
     libboost-program-options-dev
     libboost-thread-dev
+    libgtest-dev
+    libgmock-dev
     libsocketcan-dev
     libsqlite3-dev
     libzmq3-dev
