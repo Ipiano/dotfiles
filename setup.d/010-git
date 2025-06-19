@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo "Setting up git..."
+
+echo -e "\tInstalling git..."
+sudo add-apt-repository ppa:git-core/candidate
+sudo apt-get update
+sudo apt-get install --no-install-recommends -y git git-extras git-gui gitk meld
+
+if prompt_default_yes "Install .gitconfig for Andrew Stelter?"; then
+    shopt -s dotglob
+    cp $BOOTSTRAP_ROOT/git/.gitignore-global $HOME/
+    configure $BOOTSTRAP_ROOT/git/.gitconfig $HOME/
+    shopt -u dotglob
+fi

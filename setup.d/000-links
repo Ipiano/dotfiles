@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Create /opt/links to put symlinks in for various tools, and add a profile.d
+# script that puts it in PATH
+if [ ! -d /opt/links/bin ]; then
+    sudo mkdir -p /opt/links/bin
+fi
+
+if [ ! -f /etc/profile.d/ZZ-links.sh ]; then
+    echo 'export PATH="$PATH:/opt/links/bin"' | sudo tee /etc/profile.d/ZZ-links.sh >/dev/null
+fi

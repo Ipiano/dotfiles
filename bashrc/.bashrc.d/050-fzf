@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    export FZF_DEFAULT_OPTS="--ansi --layout=reverse"
+    export FZF_DEFAULT_COMMAND="fd --ignore-case --color=always"
+
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_CTRL_T_OPTS="--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+
+    if [ ! -f /usr/share/bash-completion/completions/fzf ]; then
+        source /usr/share/doc/fzf/examples/completion.bash
+    fi
+fi

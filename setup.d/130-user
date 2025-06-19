@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+NEW_GROUPS=("docker" "wireshark" "dialout")
+
+for g in "${NEW_GROUPS[@]}"; do
+    echo "Add $USER to group $g"
+    sudo groupadd "$g" || true
+    sudo usermod -aG "$g" "$USER"
+done

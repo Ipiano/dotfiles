@@ -1,0 +1,169 @@
+{
+  //
+  // These three options conflict with clangd and need to be disabled if it's
+  // enabled.
+  "C_Cpp.autocomplete": "Disabled",
+  "C_Cpp.errorSquiggles": "Disabled",
+  "C_Cpp.intelliSenseEngine": "Disabled",
+  //
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--enable-config"
+  ],
+  "clangd.onConfigChanged": "restart",
+  "clang-format.executable": "clang-format",
+  "clang-format.fallbackStyle": "none",
+  //
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[yaml]": {
+    "editor.formatOnSave": false
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[git-commit]": {
+    "editor.rulers": [
+      50,
+      72
+    ],
+    "rewrap.wrappingColumn": 72
+  },
+  "[git-rebase]": {
+    "editor.rulers": [
+      50,
+      72
+    ],
+    "rewrap.wrappingColumn": 72
+  },
+  "cSpell.userWords": [
+    "bitbake",
+    "cmake",
+    "discretization",
+    "gitlab",
+    "googletest",
+    "makefiles",
+    "mkspec",
+    "protoc",
+    "qmake",
+    "rasterized",
+    "rasterizes",
+    "strequal",
+    "subdir",
+    "submodule",
+    "submodules"
+  ],
+  "cmake.configureOnOpen": false,
+  "cmake.configureSettings": {
+    "CMAKE_INSTALL_PREFIX": "install"
+  },
+  "cmake.buildDirectory": "${workspaceFolder}/build/${buildKitVendor}_${buildKitVersionMajor}-${buildKitTriple}/${buildType}",
+  "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
+  // Default cmake-format args when a config file not given
+  "cmakeFormat.args": [
+    "--line-width=100",
+    "--tab-size=4",
+    "--dangle-parens"
+  ],
+  "cmakeFormat.exePath": "/%%HOME%%/.local/bin/cmake-format",
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    80
+  ],
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.watcherExclude": {
+    "**/.env/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/build*/*.{oa}": true,
+    "**/build*/*{Cc}{Mm}ake*": true,
+    "**/tmp/**": true
+  },
+  "liveshare.presence": true,
+  "material-icon-theme.showWelcomeMessage": false,
+  "python.formatting.provider": "black",
+  "vsicons.dontShowNewVersionMessage": true,
+  "workbench.colorCustomizations": {
+    "[Community Material Theme]": {
+      "editorError.foreground": "#c91a1a",
+      "editorHint.foreground": "#29d323",
+      "editorInfo.foreground": "#0059ff",
+      "editorWarning.foreground": "#ffe600",
+      "debugConsole.infoForeground": "#c2c2c2",
+      "debugConsole.warningForeground": "#af4e4e"
+    }
+  },
+  "editor.tokenColorCustomizations": {
+    "[Community Material Theme]": {
+      "comments": "#aaaaaa"
+    }
+  },
+  "workbench.editorAssociations": {
+    "git-rebase-todo": "default"
+  },
+  "workbench.startupEditor": "none",
+  "testMate.cpp.test.parallelExecutionOfExecutableLimit": 10,
+  "testMate.cpp.test.parallelExecutionLimit": 10,
+  "testMate.cpp.log.logSentry": "disable_3",
+  "testing.autoRun.delay": 200,
+  "files.associations": {
+    "Doxyfile": "plaintext"
+  },
+  "testMate.cpp.log.logpanel": true,
+  "testMate.cpp.debug.configTemplate": {
+    "type": "cppvsdbg",
+    "linux": {
+      "type": "cppdbg",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable Pretty-Printing",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    "program": "${exec}",
+    "args": "${argsArray}",
+    "cwd": "${cwd}",
+    "env": "${envObj}",
+    "environment": "${envObjArray}",
+    "sourceFileMap": "${sourceFileMapObj}"
+  },
+  "files.exclude": {
+    "**/.repo": true,
+    "**/tmp/**": true
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "telemetry.telemetryLevel": "error",
+  "remote.containers.gitCredentialHelperConfigLocation": "none",
+  "typescript.tsc.autoDetect": "off",
+  "grunt.autoDetect": "off",
+  "jake.autoDetect": "off",
+  "gulp.autoDetect": "off",
+  "npm.autoDetect": "off",
+  "[cmake]": {
+    "editor.defaultFormatter": "cheshirekow.cmake-format"
+  },
+  "explorer.autoReveal": false,
+  "clangd.path": "/usr/bin/clangd",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "gitlens.graph.layout": "editor",
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "workbench.productIconTheme": "material-product-icons",
+  "workbench.colorTheme": "Palenight (Mild Contrast)",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

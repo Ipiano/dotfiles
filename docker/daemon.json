@@ -1,0 +1,12 @@
+{
+    "experimental": false,
+    "debug": false,
+    "features": {
+        "buildkit": true
+    },
+    "dns": [
+        "8.8.8.8",
+        "8.8.4.4",
+        "1.1.1.1"
+    ]
+}

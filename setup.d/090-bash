@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+echo "Setting up bash prompt..."
+
+echo -e "\tInstalling fzf, fdfind, rg, bat..."
+
+if ! which bat >/dev/null; then
+    # Install bat from git because the Ubuntu 20.04 version crashes when run in
+    # some git repos
+    # https://github.com/sharkdp/bat/issues/2317
+
+    TEMP_DEB="$(mktemp)" &&
+        wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.25.0/bat_0.25.0_amd64.deb' &&
+        sudo dpkg -i "$TEMP_DEB"
+    rm -f "$TEMP_DEB"
+
+    # New versions of bat are not called batcat
+    if which batcat >/dev/null; then
+        sudo ln -s "$(which batcat)" /opt/links/bin/bat
+    fi
+fi
+
+sudo apt-get install --no-install-recommends -y \
+    -o Dpkg::Options::="--force-overwrite" \
+    fzf fd-find ripgrep
+
+mkdir -p $HOME/.local/bin
+
+if ! which fd >/dev/null; then
+    if which fdfind >/dev/null; then
+        sudo ln -s "$(which fdfind)" /opt/links/bin/fd
+    fi
+fi
+
+if [ ! -f $HOME/.bashrc.bak ]; then
+    echo -e "\tBacking up old bashrc files..."
+    mv $HOME/.bashrc $HOME/.bashrc.bak || true
+    mv $HOME/.bashrc.local $HOME/.bashrc.local.bak || true
+    mv $HOME/.bash_aliases $HOME/.bash_aliases.bak || true
+fi
+
+echo -e "\tInstalling bashrc.d setup..."
+shopt -s dotglob
+cp -r $BOOTSTRAP_ROOT/bashrc/* $HOME/
+shopt -u dotglob

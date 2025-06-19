@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+echo "Updating installed packages..."
+sudo apt-get update && sudo apt-get dist-upgrade -y
+
+# Packages to install with no extra configuration
+define PACKAGE_LIST <<EOM
+    \
+    bash-completion
+    baobab
+    ca-certificates
+    can-utils
+    curl
+    dos2unix
+    expect
+    file
+    firefox
+    gnupg
+    gparted
+    graphviz
+    gzip
+    htop
+    jq
+    lsb-release
+    net-tools
+    nmap
+    p7zip-full
+    perl
+    screen
+    simplescreenrecorder
+    traceroute
+    tree
+    unzip
+    vim
+    wget
+    zstd
+    \
+    freeglut3-dev
+    libboost-dev
+    libboost-filesystem-dev
+    libboost-program-options-dev
+    libboost-thread-dev
+    libsocketcan-dev
+    libsqlite3-dev
+    libzmq3-dev
+    python-all-dev
+    uuid-dev
+    \
+    doxygen
+    gcc
+    g++
+    gdb-multiarch
+    kcachegrind
+    make
+    ninja-build
+    pkg-config
+    qemu-user-static
+    valgrind
+    \
+    sqlite3
+    sqlitebrowser
+EOM
+
+echo "Installing general packages list..."
+sudo apt-get install --no-install-recommends -y ${PACKAGE_LIST}

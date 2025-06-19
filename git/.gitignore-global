@@ -1,0 +1,11 @@
+.vscode*
+*/build-*
+build-*
+**/build
+**/install
+build/*
+install/*
+*~
+*.pro.user
+**/.cache/clangd
+compile_commands.json

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Steps through a rebase and executes a command on each step until it fails
+function git_foreach_rebase() {
+    echo ""
+    while [ $? -eq 0 ]; do
+        bash -c "$@ && git rebase --continue"
+    done
+}
+
+function git_show_merged() {
+    git branch --merged "${1:-master}" | egrep -v "(^\*|master)"
+}
+
+function git_rm_merged() {
+    git_show_merged "$@" | xargs git branch -d
+}
+
+# Function to switch to a docker environment with the current directory mounted
+function docker_env() {
+    docker run --rm -it \
+        --mount type=bind,src=$PWD,dst=$PWD \
+        --mount type=bind,src=/opt/toolchains,dst=/opt/toolchains \
+        --mount type=bind,src=/etc/passwd,dst=/etc/passwd,readonly \
+        --mount type=bind,src=/etc/group,dst=/etc/group,readonly \
+        --mount type=bind,src=/etc/shadow,dst=/etc/shadow,readonly \
+        --env SSH_AUTH_SOCK \
+        --mount type=bind,src=${HOME}/.ssh,dst=${HOME}/.ssh,readonly \
+        --mount type=bind,src=${SSH_AUTH_SOCK},dst=${SSH_AUTH_SOCK} \
+        --user "$(id -u):$(id -g)" \
+        --workdir $PWD \
+        "$@"
+}
+
+function docker_gui_env() {
+    docker_env \
+        --mount type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix \
+        --mount "type=bind,src=/run/user/$(id -u),dst=/run/user/$(id -u)" \
+        -e DISPLAY \
+        "$@"
+}
+
+function dive() {
+    docker run --rm -it \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        wagoodman/dive:latest "$@"
+}

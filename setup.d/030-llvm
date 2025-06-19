@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo "Installing LLVM tools..."
+
+sudo apt-get install --no-install-recommends -y \
+    clang-format \
+    clangd \
+    clang-tidy \
+    clang
+
+echo -e "\tCopying default .clang-format..."
+cp $BOOTSTRAP_ROOT/llvm/.clang-format $HOME/

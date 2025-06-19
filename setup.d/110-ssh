@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+echo "Setting up SSH..."
+
+if [ ! -f $HOME/.ssh/id_ed25519 ]; then
+    echo -e "\tGenerating id_ed25519..."
+    read -p "Enter comment: " -r
+    echo
+    ssh-keygen -t ed25519 -C "$REPLY" -f $HOME/.ssh/id_ed25519
+fi
+
+if [ ! -f $HOME/.ssh/id_rsa ]; then
+    echo -e "\tGenerating id_rsa..."
+    read -p "Enter comment: " -r
+    echo
+    ssh-keygen -t rsa -b 2048 -C "$REPLY" -f $HOME/.ssh/id_rsa
+fi

@@ -1,0 +1,30 @@
+[core]
+	editor = code -w
+	excludesfile = %%HOME%%/.gitignore-global
+[user]
+	name = Andrew Stelter
+	email = andrew.d.stelter@gmail.com
+[pull]
+	rebase = true
+[color]
+	ui = auto
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+[alias]
+	supdate = submodule update --init --recursive
+	rekt = reset --hard
+	mv-class = "!f() { \
+                             git mv $1.h $2.h; \
+                             git mv $1.cpp $2.cpp; \
+                         }; f"
+	lg = log --color --graph --pretty=format:'%C(auto)%h%d %s %C(black)%C(bold)%an, %ar' --abbrev-commit --decorate
+	amend = commit --amend --no-edit
+	st = status
+	cp = cherry-pick -x
+	fixup = commit --fixup
+[fetch]
+	prune = true

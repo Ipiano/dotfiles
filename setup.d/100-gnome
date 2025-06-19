@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "Setting up gnome..."
+
+sudo apt install -y --no-install-recommends arc-theme papirus-icon-theme gnome-tweaks fonts-noto-mono
+
+gsettings set org.gnome.desktop.interface gtk-theme 'Arc'
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+
+dconf load /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/ <$BOOTSTRAP_ROOT/gnome/terminal.dconf

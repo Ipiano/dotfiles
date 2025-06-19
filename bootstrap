@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+if [ -z "$SCRIPT_DIR" ]; then
+    echo "Invoke setup.sh; do not invoke bootstrap directly"
+    exit 1
+fi
+
+export BOOTSTRAP_ROOT="${SCRIPT_DIR}"
+
+prompt_default_no() {
+    read -p "$1 y/[n]: " -r
+    echo
+
+    if [[ $REPLY =~ ^[Nn]$ || -z "$REPLY" ]]; then
+        return 1
+    fi
+    return 0
+}
+
+prompt_default_yes() {
+    read -p "$1 [y]/n: " -r
+    echo
+
+    if [[ $REPLY =~ ^[Yy]$ || -z "$REPLY" ]]; then
+        return 0
+    fi
+    return 1
+}
+
+define() { IFS='\n' read -r -d '' ${1} || true; }
+
+# Like cmake's configure() function
+#
+# $1 = input file $2 = output path
+#
+# Configure a file by finding all patterns in the file matching %%.*?%% and
+# replace them with the contents of the matching bash variable.
+#
+# If $2 is a pre-existing directory, the file will be configured to a file with
+# the same filename within that directory. Otherwise $2 will be treated as the
+# full output file path - in either case, the parent directory of $2 must exist.
+configure() {
+    in_file=$1
+    out_path=$2
+    tmp_path=$(mktemp)
+
+    cp "$in_file" "$tmp_path"
+
+    if [ -d "$out_path" ]; then
+        out_path="$out_path/$(basename "$in_file")"
+    fi
+
+    VARIABLES="$(perl -ne 's/.*?%%([^%]*)%%/\1\n/g and print $1' "$1" | tr -s '\n' '\n' | sort | uniq)"
+
+    echo "Configure $in_file -> $out_path"
+    for V in $VARIABLES; do
+        echo "$V=${!V}"
+        sed -i "s|%%${V}%%|${!V}|g" "$tmp_path"
+    done
+
+    cp "$tmp_path" "$out_path"
+    rm "$tmp_path"
+}
